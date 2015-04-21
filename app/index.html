@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>we-messenger</title>
+
+        <!-- build:css styles/main.css -->
+        <link rel="stylesheet" href="styles/style.css">
+        <!-- endbuild -->
+
+        <!-- build:css(build) styles/lib.css -->
+        <link rel="stylesheet" href="lib.css">
+        <!-- endbuild -->
+
+</head>
+    <body>
+        <!-- build:js(app) scripts/components.js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/handlebars/handlebars.runtime.js"></script>
+        <script src="@@ember"></script>
+        <script src="@@ember_data"></script>
+        <script src="bower_components/jquery-cookie/jquery.cookie.js"></script>
+        <script src="bower_components/moment/moment.js"></script>
+        <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
+        <script type="text/javascript">window.io.sails.autoConnect = false;</script>
+        <!-- endbuild -->
+
+        <!-- build:js(build) scripts/lib.js -->
+        <script src="lib.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js(.tmp) scripts/templates.js -->
+        <script src="scripts/compiled-templates.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js(.tmp) scripts/main.js -->
+        <script src="scripts/combined-scripts.js"></script>
+        <!-- endbuild -->
+        <script>
+          WeMessenger.initialize({
+            wetoken: 'ac178fe59e15d20d8836cdc81520206d56a1b63ee21b9be1af'
+          });
+        </script>
+</body>
+</html>

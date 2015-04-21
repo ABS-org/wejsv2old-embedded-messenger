@@ -1,0 +1,38 @@
+<div class="public-room-container">
+<div class="messenger-column">
+  <div class="messenger-chat-area">
+    <div class="contact-chat">
+      <div {{action 'toggleList'}} class="header">
+        <span class="contact-name">Público</span>
+      </div>
+      <div class="actions">
+        <button {{action 'closeList'}} type="button" class="remove btn btn-danger btn-xs pull-right">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+
+      {{#if isLoading}}
+        <span><img {{bind-attr src=cdpLoading}}></span>
+      {{/if}}
+
+      {{#if isListOpen}}
+        {{render 'messages-public-room' messages controller="Messages"}}
+
+        <div class="footer">
+          <form {{action "sendMessage" on="submit"}} >
+            <div class="input-group">
+
+              {{input name="messageNew" value=messageNew type="text" placeholder=messagePlaceholder classNames="input-xs"}}
+
+              <span class="input-group-btn">
+                <button  {{action "sendMessage"}} class="btn btn-xs btn-primary" type="submit">Enviar</button>
+              </span>
+            </div>
+          </form>
+        </div>
+
+      {{/if}}
+    </div>
+  </div>
+</div>
+</div>
