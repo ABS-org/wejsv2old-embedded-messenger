@@ -23,9 +23,7 @@ module.exports = function(grunt) {
     // configurable paths
     var yeomanConfig = {
         app: 'app',
-        dist: 'dist',
-        lib: 'lib',
-        build: 'build'
+        dist: 'dist'
     };
 
     grunt.initConfig({
@@ -42,20 +40,9 @@ module.exports = function(grunt) {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server']
             },
-            compassLib: {
-                files: ['<%= yeoman.lib %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass:lib']
-            },
             neuter: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
                 tasks: ['neuter']
-            },
-            lib: {
-                files: [
-                    '<%= yeoman.lib %>/templates/**/*.hbs',
-                    '<%= yeoman.lib %>/**/*.js'
-                ],
-                tasks: ['lib']
             },
             livereload: {
                 options: {
@@ -66,9 +53,7 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                    '<%= yeoman.app %>/index.html',
-                    '<%= yeoman.lib %>/templates/{,*/}*.hbs',
-                    '<%= yeoman.lib %>/**/*.js'
+                    '<%= yeoman.app %>/index.html'
                 ]
             }
         },
@@ -84,8 +69,7 @@ module.exports = function(grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app),
-                            mountFolder(connect, yeomanConfig.build)
+                            mountFolder(connect, yeomanConfig.app)
                         ];
                     }
                 }
@@ -168,13 +152,6 @@ module.exports = function(grunt) {
             },
             server: {
                 options: {}
-            },
-            lib: {
-                options: {
-                    sassDir: '<%= yeoman.lib %>/styles',
-                    cssDir: 'build',
-                    javascriptsDir: '<%= yeoman.lib %>/scripts'
-                }
             }
         },
         // not used since Uglify task does concat,
@@ -325,7 +302,6 @@ module.exports = function(grunt) {
         concurrent: {
             server: [
                 'emberTemplates',
-                'compass:lib',
                 'compass:server',
             ],
             test: [
@@ -334,7 +310,6 @@ module.exports = function(grunt) {
             ],
             dist: [
                 'emberTemplates',
-                'compass:lib',
                 'compass:dist',
                 'imagemin',
                 'svgmin',
@@ -355,11 +330,6 @@ module.exports = function(grunt) {
                 files: {
                     '.tmp/scripts/compiled-templates.js': '<%= yeoman.app %>/templates/{,*/}*.hbs'
                 }
-            },
-            lib: {
-                files: {
-                    'build/temp/template.js': '<%= yeoman.lib %>/templates/{,*/}*.hbs'
-                }
             }
         },
         neuter: {
@@ -371,17 +341,6 @@ module.exports = function(grunt) {
                 },
                 src: '<%= yeoman.app %>/scripts/app.js',
                 dest: '.tmp/scripts/combined-scripts.js'
-            },
-            lib: {
-                options: {
-                    /*
-                  filepathTransform: function (filepath) {
-                      return yeomanConfig.lib + '/' + filepath;
-                  }
-                  */
-                },
-                src: '<%= yeoman.lib %>/lib.js',
-                dest: '<%= yeoman.build %>/lib.js'
             }
         }
     });
@@ -398,7 +357,6 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'clean:server',
-            'lib',
             'replace:app',
             'concurrent:server',
             'neuter:app',
@@ -420,7 +378,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'lib',
         'replace:dist',
         'useminPrepare',
         'concurrent:dist',
@@ -431,11 +388,6 @@ module.exports = function(grunt) {
         'copy',
         'rev',
         'usemin'
-    ]);
-
-    grunt.registerTask('lib', [
-        'emberTemplates:lib',
-        'neuter:lib'
     ]);
 
     grunt.registerTask('default', [

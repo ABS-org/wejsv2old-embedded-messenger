@@ -1,6 +1,11 @@
 /* jshint unused: false */
 'use strict';
 
+Ember.weMessenger = Ember.Namespace.create();
+Ember.weMessenger.VERSION = '1.0.0';
+
+Ember.libraries.register('WeMessenger', Ember.weMessenger.VERSION);
+
 if ( window.WeMessenger ) {
   return console.log('Namespace already taken. Exiting script...');
 }
@@ -79,7 +84,7 @@ WeMessenger.initialize = function (options){
 
   App.ContactController.reopen({
     cdpOnline: WeMessenger.options.server + '/core/images/connected.png'
-  });  
+  });
 
   window.jQuery( window.document ).ready(function (){
     /**
