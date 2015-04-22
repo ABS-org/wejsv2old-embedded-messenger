@@ -4,7 +4,7 @@ we-messenger
 ## Usage
 
 ```bash
-bower install --save we-messenger
+git clone git@github.com:wejs/we-messenger.git
 ```
 
 ## Developing
