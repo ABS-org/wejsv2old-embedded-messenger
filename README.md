@@ -40,7 +40,7 @@ WeMessenger.initialize({
 });
 ```
 
-There's one other parameters to speed up development locally. If you have the authentication token value to grant access to application you pass it in directly through `wetoken` option.
+There's one other parameters allowed to speed up development locally. If you have the authentication token value to grant access to the application you can pass it in directly through `wetoken` option.
 
 ```bash
 WeMessenger.initialize({
