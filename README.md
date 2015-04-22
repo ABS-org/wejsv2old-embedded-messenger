@@ -30,7 +30,7 @@ grunt serve
 
 ## Initialization
 
-After serving the files from the dist folder to your webpage, the WeMessenger must be initialized through the method `initialize()`.
+After serving the files from the dist folder to your webpage, the WeMessenger must be initialized through the `initialize()` method.
 
 ```bash
 WeMessenger.initialize({
