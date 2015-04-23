@@ -2,34 +2,36 @@
   overflow: hidden;
   position: fixed;
   bottom: 0px;
-  right: 50px;
+  right: 0px;
   visibility: hidden;
   width: 100%;
-  z-index: 3; }
-  .messenger-area-wrapper .header {
-    cursor: pointer;
-    padding: 10px;
-    font-size: 12px;
-    font-weight: bold; }
-  .messenger-area-wrapper .messenger-column {
-    height: 500px;
-    width: 250px;
-    margin: 0px 5px;
-    float: right; }
-    .messenger-area-wrapper .messenger-column div {
-      visibility: visible; }
-  .messenger-area-wrapper avatar img {
-    width: 30px;
-    height: 30px; }
-  .messenger-area-wrapper .createdAt {
-    color: #999999;
-    font-size: 0.75em;
-    margin: 2px;
-    text-align: left; }
-
+  z-index: 100000;
+}
+.messenger-area-wrapper .header {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.messenger-area-wrapper .messenger-column {
+  height: 500px;
+  width: 250px;
+  margin: 0px 1px;
+  float: right;
+}
+.messenger-area-wrapper .messenger-column div {
+  visibility: visible;
+}
+.messenger-area-wrapper .createdAt {
+  color: #999999;
+  font-size: 0.75em;
+  margin: 2px;
+  text-align: left;
+}
 div.messenger-area {
   bottom: 0px;
-  position: absolute; }
+  position: absolute;
+}
   div.messenger-area .action-bar {
     padding: 3px;
     color: #999;
@@ -60,43 +62,55 @@ div.messenger-area {
     padding: 0;
     overflow-y: scroll;
     background: #fff; }
-    .contact-chat .messages .message {
-      border-bottom: 1px solid #e1e1e1;
-      padding: 8px; }
-      .contact-chat .messages .message:hover {
-        background: #fbfbfb; }
-      .contact-chat .messages .message:last-child {
-        border: none; }
-      .contact-chat .messages .message .avatar-small img {
-        width: 30px;
-        height: 30px; }
-      .contact-chat .messages .message .message {
-        background: transparent;
-        display: block;
-        width: 200px;
-        float: right;
-        border: none;
-        font-size: 12px;
-        line-height: 16px;
-        margin-bottom: -10px;
-        position: relative;
-        top: -5px; }
-      .contact-chat .messages .message.sending {
-        background-color: #FFFFAC; }
-      .contact-chat .messages .message.send {
-        background-color: #56c07a; }
-      .contact-chat .messages .message.error {
-        background-color: #FF6630; }
-  .contact-chat .message-footer {
-    width: 100%;
-    padding-left: 40px;
-    clear: right; }
-    .contact-chat .message-footer .createdAt {
-      font-size: 11px; }
-  .contact-chat .footer {
-    border-top: 1px solid #ddd;
-    background: #f4f4f4;
-    padding: 0; }
+.contact-chat .messages .message {
+  border-bottom: 1px solid #e1e1e1;
+  padding: 6px 2px;
+}
+.contact-chat .messages .message:hover {
+  background: #fbfbfb; }
+.contact-chat .messages .message:last-child {
+  border: none;
+}
+.contact-chat .messages .message .avatar-small {
+  display: block;
+  float: left;
+  margin-right: 3px;
+}
+.contact-chat .messages .message .avatar-small img {
+  width: 30px;
+  height: 30px;
+}
+.contact-chat .messages .message .message {
+  background: transparent;
+  display: block;
+  border: none;
+  font-size: 12px;
+  line-height: 16px;
+  position: relative;
+  padding-top: 0px;
+}
+.contact-chat .messages .message.sending {
+  background-color: #FFFFAC;
+}
+.contact-chat .messages .message.send {
+  background-color: #56c07a;
+}
+.contact-chat .messages .message.error {
+  background-color: #FF6630;
+}
+.contact-chat .message-footer {
+  width: 100%;
+  padding-left: 32px;
+  clear: right;
+}
+.contact-chat .message-footer .createdAt {
+  font-size: 11px;
+}
+.contact-chat .footer {
+  border-top: 1px solid #ddd;
+  background: #f4f4f4;
+  padding: 0;
+}
     .contact-chat .footer input {
       width: 192px;
       height: 28px;
@@ -115,42 +129,83 @@ div.messenger-area {
       .contact-chat .footer .btn:hover, .contact-chat .footer .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .btn-image:hover, .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .contact-chat .footer .btn-image:hover, .contact-chat .footer .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .btn-audio:hover, .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .contact-chat .footer .btn-audio:hover, .contact-chat .footer .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .btn-video:hover, .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .contact-chat .footer .btn-video:hover, .contact-chat .footer .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .btn-docs:hover, .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .contact-chat .footer .btn-docs:hover, .contact-chat .footer .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .btn-map:hover, .section-story .story-main-content .story-main-content--media .story-main-content--media-tabs .contact-chat .footer .btn-map:hover, .contact-chat .footer .section-story .story-main-content .story-main-content--form .story-main-content--form-wrapper .btn-send:hover, .section-story .story-main-content .story-main-content--form .story-main-content--form-wrapper .contact-chat .footer .btn-send:hover, .contact-chat .footer .section-story .story-main-content .btn-comment:hover, .section-story .story-main-content .contact-chat .footer .btn-comment:hover, .contact-chat .footer .story-modal-edit .story-main-content--form .story-main-content--form-wrapper .btn-send:hover, .story-modal-edit .story-main-content--form .story-main-content--form-wrapper .contact-chat .footer .btn-send:hover, .contact-chat .footer .story-modal-edit .story-main-content--form .story-main-content--form-wrapper .btn-cancel:hover, .story-modal-edit .story-main-content--form .story-main-content--form-wrapper .contact-chat .footer .btn-cancel:hover, .contact-chat .footer .file-input-wrapper:hover, .contact-chat .footer .file-input-wrapper-2:hover {
         color: #626262; }
 
-.messenger .contact avatar img {
-  width: 40px;
-  height: 40px; }
-.messenger .contact-list .contact a {
+.messenger .contact {
+  font-size: 12px;
+  border-left: 3px solid #fff;
+}
+
+.messenger .contact {
+  font-size: 12px;
+  border-left: 3px solid greenyellow;
+}
+
+.messenger .contact .avatar-small {
+  display: block;
+  float: left;
+  margin-right: 5px;
+}
+.messenger .contact .avatar-small img {
+  width: 25px;
+  height: 25px;
+  padding: 0px;
+}
+
+.messenger .avatar-small img,
+.contact-chat .messages .message .avatar-small img {
+  border: none;
+  margin-bottom: 0px;
+  border-radius: inherit;
+  background: transparent;
+}
+
+.messenger .contact-list .contact a,
+.messenger .messenger-room a {
   position: relative;
   display: block;
-  padding: 10px 15px; }
-  .messenger .contact-list .contact a:hover {
+  padding: 7px 8px;
+  min-height: 40px;
+}
+
+.messenger .contact-list .contact a:hover,
+.messenger .messenger-room a:hover{
     text-decoration: none;
-    background-color: #eee; }
+    background-color: #eee;
+}
+.messenger .messenger-room a{
+  min-height: inherit;
+}
 .messenger .rooms-list {
   cursor: pointer;
   font-size: 12px;
-  font-weight: bold; }
+  font-weight: bold;
+}
 .messenger .header {
   background-color: #314e5b;
   color: #fff;
-  width: 240px; }
-
+  width: 240px;
+}
 div.messenger-area .messenger .friendlist {
   cursor: pointer;
-  margin-bottom: 15px; }
+  margin-bottom: 0px;
+  border-bottom: 1px solid #dfdfdf;
+}
 div.messenger-area .messenger .search-area {
-  margin: 0; }
-  div.messenger-area .messenger .search-area input {
-    width: 100%;
-    font-size: 12px;
-    padding-left: 6px;
-    height: 28px;
-    margin-bottom: -4px;
-    border: none;
-    border-top: 1px solid #ddd;
-    color: #ccc;
-    background: #f4f4f4; }
-    div.messenger-area .messenger .search-area input:focus {
-      outline: 0; }
+  margin: 0;
+}
+div.messenger-area .messenger .search-area input {
+  width: 100%;
+  font-size: 12px;
+  padding-left: 6px;
+  height: 28px;
+  margin-bottom: -4px;
+  border: none;
+  border-top: 1px solid #ddd;
+  color: #ccc;
+  background: #f4f4f4;
+}
+div.messenger-area .messenger .search-area input:focus {
+  outline: 0;
+}
 
 div.messenger-off {
   background-color: #314e5b;
@@ -159,7 +214,20 @@ div.messenger-off {
   padding: 10px;
   font-size: 12px;
   font-weight: bold;
-  cursor: pointer; }
-  div.messenger-off .ui-icon-person {
-    float: left;
-    vertical-align: middle; }
+  cursor: pointer;
+}
+
+div.messenger-off .ui-icon-person {
+  float: left;
+  vertical-align: middle;
+}
+
+.contact-list {
+  padding-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.contact-list li{
+  list-style-type: none;
+}

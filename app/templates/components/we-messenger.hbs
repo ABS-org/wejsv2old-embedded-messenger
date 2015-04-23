@@ -15,15 +15,15 @@
             {{/each}}
           </ul>
           <ul class="nav nav-list rooms-list contact-list">
-            <li class="global-room">
-              <a {{action 'openPublicBox'}} >
+            <li class="global-room messenger-room">
+              <a {{action 'openPublicBox'}}>
                 Sala Pública
               </a>
             </li>
           </ul>
-          <div class="search-area">
+ {{!--          <div class="search-area">
             {{input type="text" value=srcCriteria placeholder="Procure ..."}}
-          </div>
+          </div> --}}
         </div>
       {{else}}
         <div class="messenger-off" {{action 'openList'}}>

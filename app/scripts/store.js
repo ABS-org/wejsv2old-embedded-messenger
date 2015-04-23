@@ -16,5 +16,9 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
   */
   serializeIntoHash: function(hash, type, record, options) {
     Ember.merge(hash, this.serialize(record, options));
+  },
+
+  warnMessageNoModelForKey: function(prop, typeKey) {
+    return 'Encountered "' + prop + '" in payload, but no model was found for model name "' + typeKey + '" (resolved model name using ' + this.constructor.toString() + '.typeForRoot("' + prop + '"))';
   }
 });

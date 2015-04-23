@@ -8,7 +8,9 @@ App.User = DS.Model.extend({
   password: DS.attr('string', { }),
   displayName: DS.attr('string', {  }),
   birthDate: DS.attr('date', {  }),
-  avatar: DS.attr('number', { }),
+  avatar: DS.belongsTo('images', {
+    async: true
+  }),
   active: DS.attr('boolean', {  }),
   isAdmin: DS.attr('boolean', { }),
   isModerator: DS.attr('boolean', { }),
