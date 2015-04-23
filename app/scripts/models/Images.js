@@ -21,7 +21,7 @@ $(function() {
 
   App.ImagesAdapter = App.ApplicationAdapter.extend({
     namespace: 'api/v1',
-    pathForType: function(type) {
+    pathForType: function() {
        return 'images';
     },
 
