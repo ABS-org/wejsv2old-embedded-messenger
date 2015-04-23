@@ -38,11 +38,17 @@ App.auth = Ember.Object.create({
 WeMessenger.initialize = function (options){
   var opts = options || {};
   opts.server = opts.server || 'http://localhost:1420';
+  opts.accounts = opts.accounts || 'http://localhost:2430';
 
   WeMessenger.options = opts;
 
   App.ApplicationAdapter.reopen({
     host: WeMessenger.options.server,
+  });
+
+  App.get('auth').setProperties({
+    accounts: opts.accounts,
+    server: opts.server
   });
 
   App.ApplicationRoute = Ember.Route.extend({
@@ -51,7 +57,7 @@ WeMessenger.initialize = function (options){
 
       return Ember.RSVP.hash({
         // get current user
-        currentUser: $.getJSON( WeMessenger.options.server + '/account' )
+        currentUser: $.getJSON( WeMessenger.options.accounts + '/account' )
           .done(function afterLoadCurrentUser(data) {
             if (data.user) {
               App.set('currentUser', self.store.push('user', data.user));
@@ -118,7 +124,7 @@ WeMessenger.initialize = function (options){
       }
     });
 
-    $.getJSON(WeMessenger.options.server + '/account')
+    $.getJSON(WeMessenger.options.accounts + '/account')
     .done(function (data) {
       App.get('auth').setProperties({
         isAuthenticated: true,
@@ -128,10 +134,9 @@ WeMessenger.initialize = function (options){
       App.advanceReadiness();
     })
     .fail(function (error){
-      console.log('WeMessenger:: No authenticated cookie nor token could be inferred');
       console.log('WeMessenger:: Access Denied');
       console.log('WeMessenger:: You gotta login first on CdP server');
-      App.set('auth.isAuthenticated', false);
+      // App.set('auth.isAuthenticated', false);
       return;
     });
   });
