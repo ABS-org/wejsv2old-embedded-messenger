@@ -4,17 +4,19 @@
         <meta charset="utf-8">
         <title>we-messenger</title>
 
-        <link rel="stylesheet" href="styles/f0640ddd.main.css">
+        <link rel="stylesheet" href="styles/e1242c3c.main.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
     <body>
-        <script src="scripts/01d31c1e.components.js"></script>
-
-        <script src="scripts/55b0cc92.templates.js"></script>
-
-        <script src="scripts/13a717d9.main.js"></script>
+        <script src="scripts/ada0d962.components.js"></script>
+        <script src="scripts/5a32014f.templates.js"></script>
+        <script src="scripts/aae2ecf7.main.js"></script>
         <script>
           WeMessenger.initialize({
-            wetoken: 'ac178fe59e15d20d8836cdc81520206d56a1b63ee21b9be1af'
+            wetoken: 'c3069186897e98c860fae1eee46d96d25a84376db6d0525e9b',
+            authTokenName: 'wetoken', // Cookie's name that holds token for authenticated users
+            accounts: 'http://cdp.dev:80', // CdP oAuth server i.e: 'https://perfis.atencaobasica.org.br/'
+            server: 'http://cdp.dev:80' // CdP messenger server i.e: 'https://novo.atencaobasica.org.br/'
           });
         </script>
 </body>

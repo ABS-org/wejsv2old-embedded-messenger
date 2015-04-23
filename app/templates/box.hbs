@@ -23,13 +23,13 @@
       {{#if isListOpen}}
         <div>
           {{#if isLoading}}
-            <span><img {{bind-attr src=cdpLoading}}></span>
+            <div class="messenger-loading"><img {{bind-attr src=cdpLoading}}> Carregando ... </div>
           {{/if}}
 
           {{render 'messages' messages id=boxId }}
 
           {{#if isWriting}}
-            <div class="contact is-writing">              
+            <div class="contact is-writing">
               {{user-avatar user=this}}
               <span class="small is-writing-text">digitando...</span>
             </div>

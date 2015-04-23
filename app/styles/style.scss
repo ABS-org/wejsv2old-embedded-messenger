@@ -118,9 +118,9 @@ div.messenger-area {
       background: #f4f4f4;
       border: none;
       padding-left: 6px; }
-      .contact-chat .footer input:focus {
-        outline: 0; }
-
+.contact-chat .footer input:focus {
+  outline: 0;
+}
 .messenger .contact {
   font-size: 12px;
   border-left: 3px solid #fff;
@@ -222,4 +222,9 @@ div.messenger-off .ui-icon-person {
 
 .contact-list li{
   list-style-type: none;
+}
+
+.messenger-loading,
+.messenger-loading img {
+  height: 30px;
 }
