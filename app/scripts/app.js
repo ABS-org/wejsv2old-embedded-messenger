@@ -1,6 +1,8 @@
 /* jshint unused: false */
 'use strict';
 
+moment.locale('pt-br');
+
 Ember.weMessenger = Ember.Namespace.create();
 Ember.weMessenger.VERSION = '1.0.0';
 
@@ -98,10 +100,15 @@ WeMessenger.initialize = function (options){
      */
     var token = '';
 
-    var authTokenName = opts.authTokenName || 'wetoken';
+    var authTokenName = opts.authTokenName;
+    if ( typeof authTokenName === 'string' ) {
+      authTokenName = authTokenName;
+    } else {
+      authTokenName = 'wetoken';
+    }
 
-    if ( opts.wetoken ) {
-      token = opts.wetoken;
+    if ( options.wetoken ) {
+      token = options.wetoken;
     } else {
       token = $.cookie(authTokenName);
     }
@@ -110,6 +117,7 @@ WeMessenger.initialize = function (options){
       console.log('WeMessenger:: No authenticated cookie nor token could be inferred');
       console.log('WeMessenger:: Access Denied');
       console.log('WeMessenger:: You gotta login first on CdP server');
+      console.log('Options::', options, opts);
       App.set('auth.isAuthenticated', false);
       return;
     }

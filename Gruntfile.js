@@ -165,18 +165,18 @@ module.exports = function(grunt) {
         /*uglify: {
             dist: {}
         },*/
-        rev: {
-            dist: {
-                files: {
-                    src: [
-                        '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                        '<%= yeoman.dist %>/styles/fonts/*'
-                    ]
-                }
-            }
-        },
+        // rev: {
+        //     dist: {
+        //         files: {
+        //             src: [
+        //                 '<%= yeoman.dist %>/scripts/{,*/}*.js',
+        //                 '<%= yeoman.dist %>/styles/{,*/}*.css',
+        //                 '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+        //                 '<%= yeoman.dist %>/styles/fonts/*'
+        //             ]
+        //         }
+        //     }
+        // },
         useminPrepare: {
             html: '.tmp/index.html',
             options: {
@@ -266,6 +266,32 @@ module.exports = function(grunt) {
                 files: [{
                     src: '<%= yeoman.app %>/index.html',
                     dest: '.tmp/index.html'
+                }]
+            },
+            stage: {
+                options: {
+                    variables: {
+                        ember: 'bower_components/ember/ember.prod.js',
+                        /* jshint camelcase: false */
+                        ember_data: 'bower_components/ember-data/ember-data.prod.js'
+                    }
+                },
+                files: [{
+                    src: '<%= yeoman.app %>/stage.html',
+                    dest: '.tmp/stage.html'
+                }]
+            },
+            prod: {
+                options: {
+                    variables: {
+                        ember: 'bower_components/ember/ember.prod.js',
+                        /* jshint camelcase: false */
+                        ember_data: 'bower_components/ember-data/ember-data.prod.js'
+                    }
+                },
+                files: [{
+                    src: '<%= yeoman.app %>/prod.html',
+                    dest: '.tmp/prod.html'
                 }]
             }
         },
@@ -386,7 +412,7 @@ module.exports = function(grunt) {
         'cssmin',
         'uglify',
         'copy',
-        'rev',
+        // 'rev',
         'usemin'
     ]);
 

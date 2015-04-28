@@ -1,1 +1,0 @@
-window.io.sails.autoConnect = false;
