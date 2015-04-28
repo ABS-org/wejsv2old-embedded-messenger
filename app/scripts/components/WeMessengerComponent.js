@@ -68,6 +68,12 @@ App.WeMessengerComponent = Ember.Component.extend({
       });
       socketMessage.message.fromId.set('isTalking', true);
     });
+
+    self.get('WeMessengerEvents').on('we-messenger-updated-message', function OnReceiveMessage(socketMessage) {
+      self.get('store').pushPayload('message', {
+        message: socketMessage.message
+      });
+    });
   },
   didInsertElement: function didInsertElement() {
     if (!this.get('store')) {
@@ -180,6 +186,19 @@ App.WeMessengerComponent = Ember.Component.extend({
       if( data.message && data.message.fromId !== App.currentUser.id ){
         // we.messenger.publicRoom.messages.push(data.message);
         self.get('WeMessengerEvents').trigger('weMessengerPublicMessageReceived', data);
+      }
+    });
+
+    /**
+     * Receive a message update
+     * @param  Object data
+     */
+    socket.on('update:message', function(data) {
+      if( !App.get('auth.isAuthenticated') ) {
+        return false;
+      }
+      if( data.message ){
+        self.get('WeMessengerEvents').trigger('we-messenger-updated-message', data);
       }
     });
 

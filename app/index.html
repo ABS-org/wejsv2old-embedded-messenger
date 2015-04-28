@@ -18,7 +18,7 @@
         <script src="bower_components/jquery-cookie/jquery.cookie.js"></script>
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
-        <script type="text/javascript">window.io.sails.autoConnect = false;</script>
+        <script src="scripts/bootstrap.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/templates.js -->
@@ -31,10 +31,9 @@
         <!-- endbuild -->
         <script>
           WeMessenger.initialize({
-            wetoken: 'a4be0abeff620006e12967566aaf1c378c16de3f77ed91c32c',
             authTokenName: 'wetoken', // Cookie's name that holds token for authenticated users
-            accounts: 'http://cdp.dev:80', // CdP oAuth server i.e: 'https://perfis.atencaobasica.org.br/'
-            server: 'http://cdp.dev:80' // CdP messenger server i.e: 'https://novo.atencaobasica.org.br/'
+            accounts: 'http://localhost:2430', // CdP oAuth server i.e: 'https://perfis.atencaobasica.org.br/'
+            server: 'http://localhost:1420' // CdP messenger server i.e: 'https://novo.atencaobasica.org.br/'
           });
         </script>
 </body>

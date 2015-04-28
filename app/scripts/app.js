@@ -98,8 +98,7 @@ WeMessenger.initialize = function (options){
      */
     var token = '';
 
-    var authTokenName = opts.authTokenName;
-    authTokenName = ( typeof authTokenName === 'string' ) || 'wetoken';
+    var authTokenName = opts.authTokenName || 'wetoken';
 
     if ( opts.wetoken ) {
       token = opts.wetoken;
