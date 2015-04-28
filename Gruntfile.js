@@ -267,6 +267,32 @@ module.exports = function(grunt) {
                     src: '<%= yeoman.app %>/index.html',
                     dest: '.tmp/index.html'
                 }]
+            },
+            stage: {
+                options: {
+                    variables: {
+                        ember: 'bower_components/ember/ember.prod.js',
+                        /* jshint camelcase: false */
+                        ember_data: 'bower_components/ember-data/ember-data.prod.js'
+                    }
+                },
+                files: [{
+                    src: '<%= yeoman.app %>/stage.html',
+                    dest: '.tmp/stage.html'
+                }]
+            },
+            prod: {
+                options: {
+                    variables: {
+                        ember: 'bower_components/ember/ember.prod.js',
+                        /* jshint camelcase: false */
+                        ember_data: 'bower_components/ember-data/ember-data.prod.js'
+                    }
+                },
+                files: [{
+                    src: '<%= yeoman.app %>/prod.html',
+                    dest: '.tmp/prod.html'
+                }]
             }
         },
         // Put files not handled in other tasks here

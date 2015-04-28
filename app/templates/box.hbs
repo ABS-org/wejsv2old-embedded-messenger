@@ -28,12 +28,14 @@
 
           {{render 'messages' messages id=boxId }}
 
-          {{#if isWriting}}
-            <div class="contact is-writing">
-              {{user-avatar user=this}}
-              <span class="small is-writing-text">digitando...</span>
-            </div>
-          {{/if}}
+          <div class="realtime-status">
+            {{#if isWriting}}
+              <div class="contact is-writing">
+                <span class="small is-writing-text">Digitando...</span>
+              </div>
+            {{/if}}
+          </div>
+
           <div class="footer">
             <form {{action "sendMessage" on="submit"}} method="post">
               <div class="input-group">
