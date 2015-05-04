@@ -3,8 +3,13 @@
     <div class="messenger-area">
       {{#if isListOpen}}
         <div class="messenger">
-          <div class="header" {{action 'closeList'}}>
+          <div class="header">
             Bate-papo
+            <div class="actions">
+              <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
+                <i class="IR sprt-chat-minimize"></i>
+              </button>
+            </div>
           </div>
           <ul class="nav nav-list friendlist contact-list">
             {{#each filteredContacts}}
@@ -23,12 +28,14 @@
           </div> --}}
         </div>
       {{else}}
-        <div class="messenger-off" {{action 'openList'}}>
+        <div class="messenger-off">
           <span class="ui-icon ui-icon-person"></span>
           <span class="text">Messenger</span>
-          <button type="button" class="remove btn btn-default btn-xs pull-right">
-            <span class="glyphicon glyphicon-wrench"></span>
-          </button>
+          <div class="actions">
+              <button {{action 'openList'}} type="button" class="remove btn btn-xs">
+                <i class="IR sprt-chat-minimize"></i>
+              </button>
+            </div>
         </div>
       {{/if}}
     </div>

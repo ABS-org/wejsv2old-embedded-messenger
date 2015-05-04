@@ -2,12 +2,15 @@
 <div class="messenger-column">
   <div class="messenger-chat-area">
     <div class="contact-chat">
-      <div {{action 'toggleList'}} class="header">
-        <span class="contact-name">Público</span>
+      <div class="header">
+        <i class="IR sprt-chat"></i> <span class="contact-name">Público</span>
       </div>
       <div class="actions">
-        <button {{action 'closeList'}} type="button" class="remove btn btn-danger btn-xs pull-right">
-          <span class="glyphicon glyphicon-remove"></span>
+        <button {{action 'toggleList'}} type="button" class="remove btn btn-xs">
+          <i class="IR sprt-chat-minimize"></i>
+        </button>
+        <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
+          <i class="IR sprt-chat-close"></i>
         </button>
       </div>
 
@@ -20,12 +23,13 @@
 
         <div class="footer">
           <form {{action "sendMessage" on="submit"}} >
+            <i class="IR sprt-chat-lines"></i>
             <div class="input-group">
 
               {{input name="messageNew" value=messageNew type="text" placeholder=messagePlaceholder classNames="input-xs"}}
 
               <span class="input-group-btn">
-                <button  {{action "sendMessage"}} class="btn btn-xs btn-primary" type="submit">Enviar</button>
+                <button  {{action "sendMessage"}} class="btn btn-xs btn-send" type="submit"><i class="IR sprt-chat-send"></i></button>
               </span>
             </div>
           </form>

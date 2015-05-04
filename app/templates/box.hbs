@@ -1,18 +1,21 @@
 <div class="messenger-column">
   <div class="messenger-chat-area">
     <div class="contact-chat" tabindex="0">
-      <div {{action 'toggleList'}} class="header">
+      <div class="header">
         {{#if isOnline}}
-          <span class="messenger-status"><img width='17px' {{bind-attr src=cdpOnline}}></span>
+          <i class="IR sprt-chat"></i>
         {{else}}
-          <span class="messenger-status"><img width='17px' {{bind-attr src=cdpOffline}}></span>
+          {{!--<span class="messenger-status"><img width='17px' {{bind-attr src=cdpOffline}}></span>--}}
         {{/if}}
         {{!-- <span class="contact-name">{{contactUser.displayName}}</span> --}}
-        <span class="contact-name">{{displayName}}</span>
+        <span class="contact-name"> {{displayName}}</span>
       </div>
       <div class="actions">
-        <button {{action 'closeList'}} type="button" class="remove btn btn-danger btn-xs pull-right">
-          <span class="glyphicon glyphicon-remove"></span>
+        <button {{action 'toggleList'}} type="button" class="remove btn btn-xs">
+          <i class="IR sprt-chat-minimize"></i>
+        </button>
+        <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
+          <i class="IR sprt-chat-close"></i>
         </button>
       </div>
 
@@ -38,10 +41,11 @@
 
           <div class="footer">
             <form {{action "sendMessage" on="submit"}} method="post">
+              <i class="IR sprt-chat-lines"></i>
               <div class="input-group">
                 {{input name="messageNew" value=messageNew  type="text" placeholder=messagePlaceholder classNames="input-xs"}}
                 <span class="input-group-btn">
-                  <button  {{action "sendMessage"}} class="btn btn-xs btn-primary" type="submit">Enviar</button>
+                  <button  {{action "sendMessage"}} class="btn btn-xs btn-send" type="submit"><i class="IR sprt-chat-send"></i></button>
                 </span>
               </div>
             </form>
