@@ -94,7 +94,7 @@ WeMessenger.initialize = function (options){
     cdpOnline: WeMessenger.options.server + '/core/images/connected.png'
   });
 
-  window.jQuery( window.document ).ready(function (){
+  window.jQuery( window.document ).ready(function () {
     /**
      * Add Accept and Header in all request
      */

@@ -2,6 +2,9 @@
 App.BoxView = Ember.View.extend({
   tabindex: '0',
   attributeBindings: ['tabindex'],
+
+  classNames: ['messenger-chat-area','messenger-column'],
+
   didInsertElement: function(){
     var self = this;
 

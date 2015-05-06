@@ -2,6 +2,7 @@
 App.inject( 'component:we-messenger-public-box', 'store', 'store:main' );
 
 App.WeMessengerPublicBoxComponent = Ember.Component.extend({
+  classNames: ['public-room-container','messenger-column'],
   messages: null,
   messageNew: '',
   isListOpen: true,
@@ -105,6 +106,10 @@ App.WeMessengerPublicBoxComponent = Ember.Component.extend({
       //messageObj.access_token = App.auth.getAccessToken();
 
       var message = this.store.createRecord('message', messageObj);
+
+      self.set('messageNew', '');
+      self.scrollToBottom();
+
       message.set('fromId', App.currentUser);
       message.save().then(function() {
         self.set('messageNew', '');

@@ -76,14 +76,18 @@ App.WeMessengerComponent = Ember.Component.extend({
     });
   },
   didInsertElement: function didInsertElement() {
+    var self = this;
+
     if (!this.get('store')) {
       throw 'WeMessengerComponent requires store for autocomplete feature. Inject as store=store';
     }
   },
+
   willDestroyElement: function willDestroyElement(){
     console.warn('TODO! willDestroyElement unsubscribe from events here', this);
   },
   actions: {
+
     openList: function openList(){
       this.set('isListOpen', true);
       //this.get('openContacts').pushObject({      name: 'oi2',})
