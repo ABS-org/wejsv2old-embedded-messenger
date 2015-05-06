@@ -211,8 +211,9 @@ App.BoxController = Ember.ObjectController.extend({
       this.set('model.isTalking', false);
     },
 
-    toggleList: function(){
+    toggleList: function() {
       this.toggleProperty('isListOpen');
+      if (this.get('isListOpen')) this.send('scrollToBottom');
     },
 
     scrollToBottom: function(){
