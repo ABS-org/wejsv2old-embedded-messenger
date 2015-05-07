@@ -8,6 +8,7 @@ App.WeMessengerComponent = Ember.Component.extend({
   isListOpen: true,
   socket: null,
   reconnected: false,
+  isActive: false,
   resolvedContacts: function (){
     var self = this;
     var criteria = this.get('srcCriteria');
@@ -25,7 +26,10 @@ App.WeMessengerComponent = Ember.Component.extend({
 
   init: function initWeMessengerComponent(){
     this._super();
-    var self = this;
+
+    if (window.localStorage.weMessengerIsListStatus == 'close') {
+      this.set('isListOpen', false);
+    }
 
     if( !this.get('socket') ){
       if(window.io && window.io.socket){
@@ -35,70 +39,89 @@ App.WeMessengerComponent = Ember.Component.extend({
       }
     }
 
-    // set a filter to list connected users
-    this.set('contacts', this.get('store').filter('user', function (user) {
-      return ( user.get('messengerStatus') === 'online');
-      // body...
-    }));
-
-    // filter to show only open contacts
-    this.set('openContacts', this.get('store').filter('user', function (user) {
-      return user.get('isTalking');
-    }));
-
-    self.setMessengerEvents();
-    // start the messenger and send is connected message to authenticated user contacts
-    Ember.run.later(self, function() {
-      self.send('startMessenger');
-    }, 1500);
-
-    self.get('WeMessengerEvents').on('we-messenger-contact-connected',function(user){
-      var contactToAdd = self.get('store').push('user', user);
-      contactToAdd.set('messengerStatus', 'online');
-    });
-
-    self.get('WeMessengerEvents').on('we-messenger-contact-diconnected',function(user){
-      var contactToRemove = self.get('contacts').findBy('id', String(user.id));
-      contactToRemove.set('messengerStatus', 'offline');
-    });
-
-    self.get('WeMessengerEvents').on('we-messenger-message-received', function OnReceiveMessage(socketMessage) {
-      self.get('store').pushPayload('message', {
-        message: socketMessage.message
-      });
-      socketMessage.message.fromId.set('isTalking', true);
-    });
-
-    self.get('WeMessengerEvents').on('we-messenger-updated-message', function OnReceiveMessage(socketMessage) {
-      self.get('store').pushPayload('message', {
-        message: socketMessage.message
-      });
-    });
+    if (window.localStorage.weMessengerIsActive != 'off') this.send('turnOn');
   },
-  didInsertElement: function didInsertElement() {
-    var self = this;
-
-    if (!this.get('store')) {
-      throw 'WeMessengerComponent requires store for autocomplete feature. Inject as store=store';
-    }
-  },
-
   willDestroyElement: function willDestroyElement(){
     console.warn('TODO! willDestroyElement unsubscribe from events here', this);
   },
   actions: {
+    turnOn: function() {
+      var self = this;
+
+      this.set('isActive', true);
+      window.localStorage.weMessengerIsActive = 'on';
+
+      if( !this.get('socket') ){
+        if(window.io && window.io.socket){
+          this.set('socket', window.io.socket);
+        } else {
+          return console.error('Socket.io not found in App.WeMessengerComponent.init()');
+        }
+      }
+
+      // set a filter to list connected users
+      this.set('contacts', this.get('store').filter('user', function (user) {
+        return ( user.get('messengerStatus') === 'online');
+        // body...
+      }));
+
+      // filter to show only open contacts
+      this.set('openContacts', this.get('store').filter('user', function (user) {
+        return user.get('isTalking');
+      }));
+
+      self.setMessengerEvents();
+      // start the messenger and send is connected message to authenticated user contacts
+      Ember.run.later(self, function() {
+        self.send('startMessenger');
+      }, 1500);
+
+      self.get('WeMessengerEvents').on('we-messenger-contact-connected',function(user){
+        var contactToAdd = self.get('store').push('user', user);
+        contactToAdd.set('messengerStatus', 'online');
+      });
+
+      self.get('WeMessengerEvents').on('we-messenger-contact-diconnected',function(user){
+        var contactToRemove = self.get('contacts').findBy('id', String(user.id));
+        contactToRemove.set('messengerStatus', 'offline');
+      });
+
+      self.get('WeMessengerEvents').on('we-messenger-message-received', function OnReceiveMessage(socketMessage) {
+        self.get('store').pushPayload('message', {
+          message: socketMessage.message
+        });
+        socketMessage.message.fromId.set('isTalking', true);
+      });
+
+      self.get('WeMessengerEvents').on('we-messenger-updated-message', function OnReceiveMessage(socketMessage) {
+        self.get('store').pushPayload('message', {
+          message: socketMessage.message
+        });
+      });
+    },
+    turnOff: function() {
+      if ( window.confirm('Ao desligar o comunicador você não vai poder enviar ou receber mensagens.'+
+        ' Você term certeza que deseja desligar o comunicador?')){
+        this.set('isActive', false);
+        window.localStorage.weMessengerIsActive = 'off';
+        // TODO turn off without reload
+        window.location.reload();
+      }
+    },
 
     openList: function openList(){
+      window.localStorage.weMessengerIsListStatus = 'open';
       this.set('isListOpen', true);
       //this.get('openContacts').pushObject({      name: 'oi2',})
     },
     closeList: function closeList(){
+      window.localStorage.weMessengerIsListStatus = 'close';
       this.set('isListOpen', false);
     },
     startTalk: function startTalk(contact) {
       contact.set('isTalking', true);
     },
-    openPublicBox: function openPublicBox(){
+    openPublicBox: function openPublicBox() {
       this.get('WeMessengerEvents').trigger('weMessengerOpenPublicBox');
     },
 

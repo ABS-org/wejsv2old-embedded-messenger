@@ -1,3 +1,5 @@
+{{#if isActive}}
+
 <div class="messenger-area-wrapper">
   <div class="messenger-column">
     <div class="messenger-area">
@@ -8,6 +10,9 @@
             <div class="actions">
               <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
                 <i class="IR sprt-chat-minimize"></i>
+              </button>
+              <button {{action 'turnOff'}} type="button" class="remove btn btn-xs">
+                <i class="IR sprt-chat-close"></i>
               </button>
             </div>
           </div>
@@ -23,7 +28,7 @@
               </a>
             </li>
           </ul>
- {{!--          <div class="search-area">
+{{!--           <div class="search-area">
             {{input type="text" value=srcCriteria placeholder="Procure ..."}}
           </div> --}}
         </div>
@@ -48,3 +53,22 @@
   {{we-messenger-public-box store=store}}
 
 </div>
+
+{{else}}
+
+<div class="messenger-area-wrapper">
+  <div class="messenger-column">
+    <div class="messenger-area">
+      <div class="messenger-off">
+        <div class="text-center">
+          <button {{action 'turnOn'}} type="button" class="btn btn-default btn-xs">
+            Ligar o messenger
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/if}}
