@@ -2,9 +2,9 @@
 App.inject( 'component:we-messenger', 'store', 'store:main' );
 App.WeMessengerComponent = Ember.Component.extend({
   // contacts on list
-  contacts: [],
+  contacts: Ember.NativeArray.apply([]),
   // open contact box
-  openContacts: [],
+  openContacts: Ember.NativeArray.apply([]),
   isListOpen: true,
   socket: null,
   reconnected: false,
@@ -242,7 +242,7 @@ App.WeMessengerComponent = Ember.Component.extend({
       if(App.currentUser.id !== contact.id){
         // set default values for every contact
         if( !contact.messages ){
-          contact.messages = [];
+          contact.messages = Ember.NativeArray.apply([]);
         }
         if(!contact.messengerBox){
           contact.messengerBox = {};

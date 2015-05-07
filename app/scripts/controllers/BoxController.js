@@ -3,7 +3,7 @@
 App.BoxController = Ember.ObjectController.extend({
   messageNew: '',
   contact: {},
-  messages: [],
+  messages: Ember.NativeArray.apply([]),
   isListOpen: true, // show | close
   //flags
   isVisible: true,
