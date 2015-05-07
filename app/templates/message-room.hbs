@@ -4,8 +4,6 @@
   <small>{{fromId.displayName}}</small>
   <span class="message">{{content.content}}</span>
   <div class="message-footer">
-    <span class="createdAt">
-      {{format-date createdAt}}
-    </span>
+    <span class="createdAt">{{we-time-ago date=createdAt}}</span>
   </div>
 </div>
