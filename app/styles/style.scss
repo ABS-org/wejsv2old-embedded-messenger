@@ -46,7 +46,6 @@ i.IR.sprt-chat-send {
   height: 500px;
   width: 250px;
   margin: 0px 1px;
-  float: right;
   position: relative;
   z-index: -1;
 }
@@ -93,6 +92,9 @@ div.messenger-area {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   color: #fff;
+}
+.public-room-container {
+  overflow: hidden;
 }
 .public-room-container .contact-chat .header {
   background-color: #00a38a;
