@@ -27,7 +27,11 @@ App.WeMessengerComponent = Ember.Component.extend({
   init: function initWeMessengerComponent(){
     this._super();
 
-    if (window.localStorage.weMessengerIsListStatus == 'close') {
+    // if (window.localStorage.weMessengerIsListStatus == 'close') {
+    //   this.set('isListOpen', false);
+    // }
+
+    if ( $.cookie('weMessengerIsListStatus') === 'close' ) {
       this.set('isListOpen', false);
     }
 
@@ -39,7 +43,10 @@ App.WeMessengerComponent = Ember.Component.extend({
       }
     }
 
-    if (window.localStorage.weMessengerIsActive != 'off') this.send('turnOn');
+    // if (window.localStorage.weMessengerIsActive != 'off') this.send('turnOn');
+    if ( $.cookie('weMessengerIsActive') !== 'off' ) {
+      this.send('turnOn');
+    }    
   },
   willDestroyElement: function willDestroyElement(){
     console.warn('TODO! willDestroyElement unsubscribe from events here', this);
@@ -49,7 +56,8 @@ App.WeMessengerComponent = Ember.Component.extend({
       var self = this;
 
       this.set('isActive', true);
-      window.localStorage.weMessengerIsActive = 'on';
+      // window.localStorage.weMessengerIsActive = 'on';
+      $.cookie('weMessengerIsActive', 'on');
 
       if( !this.get('socket') ){
         if(window.io && window.io.socket){
@@ -103,19 +111,22 @@ App.WeMessengerComponent = Ember.Component.extend({
       if ( window.confirm('Ao desligar o comunicador você não vai poder enviar ou receber mensagens.'+
         ' Você term certeza que deseja desligar o comunicador?')){
         this.set('isActive', false);
-        window.localStorage.weMessengerIsActive = 'off';
+        // window.localStorage.weMessengerIsActive = 'off';
+        $.cookie('weMessengerIsActive', 'off');
         // TODO turn off without reload
         window.location.reload();
       }
     },
 
     openList: function openList(){
-      window.localStorage.weMessengerIsListStatus = 'open';
+      // window.localStorage.weMessengerIsListStatus = 'open';
+      $.cookie('weMessengerIsListStatus', 'open');
       this.set('isListOpen', true);
       //this.get('openContacts').pushObject({      name: 'oi2',})
     },
     closeList: function closeList(){
-      window.localStorage.weMessengerIsListStatus = 'close';
+      // window.localStorage.weMessengerIsListStatus = 'close';
+      $.cookie('weMessengerIsListStatus', 'close');      
       this.set('isListOpen', false);
     },
     startTalk: function startTalk(contact) {
