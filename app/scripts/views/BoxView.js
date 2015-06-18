@@ -8,6 +8,9 @@ App.BoxView = Ember.View.extend({
   didInsertElement: function(){
     var self = this;
 
+    // Notify to parent, of its creation
+    $(this.get('parentView.element')).trigger('calculateBoxSize');
+
     this.$('input').focus();
 
     this.$('.contact-chat').on('focusin', $.proxy(this.focusIn,this) );
@@ -29,6 +32,9 @@ App.BoxView = Ember.View.extend({
   willDestroyElement: function(){
     this.$('.contact-chat').off('focusin', $.proxy(this.focusIn,this) );
     this.$('.contact-chat').off('focusout', $.proxy(this.focusOut,this) );
+
+    // Notify to parent, of its deletion
+    $(this.get('parentView.element')).trigger('calculateBoxSize');
   },
   focusIn: function() {
     this.get('controller').send('focusToggle', true);

@@ -2,6 +2,7 @@
   <a {{action "startTalk" this}} >
     {{!-- <span class="avatar-small">{{we-avatar userId=contactUser.id}}</span> --}}
     <span class="avatar-small">{{user-avatar user=this}}</span>
+    {{unread-messages unreadMessages}}
     {{displayName}}
   </a>
 </li>

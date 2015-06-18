@@ -7,7 +7,8 @@
     "ember-data": "~1.0.0-beta.11",
     "moment": "~2.10.2",
     "sails.io.js": "~0.11.5",
-    "jquery-cookie": "~1.4.1"
+    "jquery-cookie": "~1.4.1",
+    "SoundJS": "~0.6.1"
   },
   "devDependencies": {
     "ember-mocha-adapter": "0.1.2"

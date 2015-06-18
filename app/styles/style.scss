@@ -29,7 +29,6 @@ i.IR.sprt-chat-send {
 
 
 .messenger-area-wrapper {
-  overflow: hidden;
   position: fixed;
   bottom: 0px;
   right: 0px;
@@ -46,8 +45,12 @@ i.IR.sprt-chat-send {
   height: 500px;
   width: 250px;
   margin: 0px 1px;
-  position: relative;
+  position: fixed;
+  bottom: 0;
   z-index: -1;
+}
+.messenger-area-wrapper .contacts {
+  right: 1px;
 }
 .messenger-area-wrapper .messenger-column div {
   visibility: visible;
@@ -93,9 +96,11 @@ div.messenger-area {
   border-top-right-radius: 3px;
   color: #fff;
 }
+/*
 .public-room-container {
   overflow: hidden;
 }
+*/
 .public-room-container .contact-chat .header {
   background-color: #00a38a;
 }

@@ -310,6 +310,18 @@ module.exports = function(grunt) {
                     ]
                 }]
             },
+            sounds: {
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    filter: 'isFile',
+                    cwd: '<%= yeoman.app %>/sounds/',
+                    dest: '.tmp/sounds/',
+                    src: [
+                        '**'
+                    ]
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,
@@ -321,7 +333,8 @@ module.exports = function(grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/*',
-                        'styles/i/*'
+                        'styles/i/*',
+                        'sounds/*'
                     ]
                 }]
             }
@@ -388,6 +401,7 @@ module.exports = function(grunt) {
             'concurrent:server',
             'neuter:app',
             'copy:fonts',
+            'copy:sounds',
             'connect:livereload',
             'open',
             'watch'

@@ -131,6 +131,17 @@ WeMessenger.initialize = function (options){
       }
     });
 
+    if ( window.createjs ) {
+      // Load new-message.mp3 sound to be played on every new private message
+      window.createjs.Sound.registerSound('/sounds/new-message.mp3', 'new-message');
+      window.createjs.Sound.on('fileload', function (e){
+        WeMessenger.sounds = WeMessenger.sounds || {};
+        WeMessenger.sounds[e.id] = window.createjs.Sound.createInstance(e.id);
+      });
+    } else {
+      console.log('Warn:: SoundJs library could not be found, mp3 file could not be loaded');
+    }
+
     $.getJSON(WeMessenger.options.accounts + '/account')
     .done(function (data) {
       App.get('auth').setProperties({

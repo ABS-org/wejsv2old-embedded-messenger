@@ -48,6 +48,10 @@ App.WeMessengerPublicBoxComponent = Ember.Component.extend({
     }, 10);
   },
 
+  notifyVisibility: function (){
+    $(this.get('parentView.element')).trigger('calculateBoxSize');
+  }.observes('isVisible'),
+
   actions: {
     scrollAtTop: function scrollAtTop(previousHeight) {
       var self = this;

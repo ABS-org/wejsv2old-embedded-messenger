@@ -59,6 +59,19 @@ App.BoxController = Ember.ObjectController.extend({
     if( this.get('isStarted') && !this.get('hasFocus') ) {
       this.set('hasNews', true);
     }
+
+    Ember.run.scheduleOnce('afterRender', this, function (){
+      var lastMessage = this.get('messages.lastObject');
+      if ( !this.get('hasFocus') && !lastMessage.get('read') ) {
+        // Play sound
+        if ( WeMessenger.sounds['new-message'] ) {
+          WeMessenger.sounds['new-message'].play();
+          window.document.title = this.get('model.username') + ' | ' + App.get('defaultTitle');
+        } else {
+          console.log('Warn:: could not find `new-message` key on loaded sound files, hence the execution was prevented');
+        }
+      }
+    });
   }.observes('messages.@each'),
 
   init: function() {
@@ -179,7 +192,7 @@ App.BoxController = Ember.ObjectController.extend({
     focusToggle: function(flag) {
       this.set('hasFocus', flag);
       // has focus
-      if(flag && this.get('isVisible')) {
+      if( flag && this.get('isVisible') ) {
         this.set('hasNews', false);
         this.send('markAllAsRead');
       }
@@ -201,6 +214,10 @@ App.BoxController = Ember.ObjectController.extend({
           }
         }
       });
+
+      this.set('model.unreadMessages', null);
+
+      window.document.title = App.get('defaultTitle');
     },
 
     openList: function(){
@@ -213,7 +230,9 @@ App.BoxController = Ember.ObjectController.extend({
 
     toggleList: function() {
       this.toggleProperty('isListOpen');
-      if (this.get('isListOpen')) this.send('scrollToBottom');
+      if (this.get('isListOpen')) {
+        this.send('scrollToBottom');
+      }
     },
 
     scrollToBottom: function(){

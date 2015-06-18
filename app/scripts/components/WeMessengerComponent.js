@@ -46,7 +46,20 @@ App.WeMessengerComponent = Ember.Component.extend({
     // if (window.localStorage.weMessengerIsActive != 'off') this.send('turnOn');
     if ( $.cookie('weMessengerIsActive') !== 'off' ) {
       this.send('turnOn');
-    }    
+    }
+  },
+  didInsertElement: function didInsertElement() {
+    if (!this.get('store')) {
+      throw 'WeMessengerComponent requires store for autocomplete feature. Inject as store=store';
+    }
+
+    this.$().on('calculateBoxSize', this.calculateBoxSize.bind(this.$()));
+    $(window).resize(this.calculateBoxSize.bind(this.$()));
+    var $this = this.$();
+    $this.on('click', '.messenger-column:not(:first)', function (){
+      $(this).css('z-index', 0);
+      $this.find('.messenger-column').not(this).css('z-index', -1);
+    });
   },
   willDestroyElement: function willDestroyElement(){
     console.warn('TODO! willDestroyElement unsubscribe from events here', this);
@@ -72,6 +85,8 @@ App.WeMessengerComponent = Ember.Component.extend({
         return ( user.get('messengerStatus') === 'online');
         // body...
       }));
+
+      self.getMessages();
 
       // filter to show only open contacts
       this.set('openContacts', this.get('store').filter('user', function (user) {
@@ -126,7 +141,7 @@ App.WeMessengerComponent = Ember.Component.extend({
     },
     closeList: function closeList(){
       // window.localStorage.weMessengerIsListStatus = 'close';
-      $.cookie('weMessengerIsListStatus', 'close');      
+      $.cookie('weMessengerIsListStatus', 'close');
       this.set('isListOpen', false);
     },
     startTalk: function startTalk(contact) {
@@ -162,17 +177,66 @@ App.WeMessengerComponent = Ember.Component.extend({
     //   this.get('store').find('contact');
     // }
   },
-  getMessages: function getMessages(id, callback){
-    // TODO change to use WEjs get messages
-    var store = this.get('store');
 
-    store.find('messages', { uid: id })
-    .then(function(messages){
-      callback(null,messages);
-    }, function(error){
-      callback(error,null);
+  calculateBoxSize: function calculateBoxSize(){
+    Ember.run.scheduleOnce('afterRender', this, function (){
+      var mainBoxWidth = this.find('.contacts').outerWidth(true);
+      var preservedArea = $( window ).width() - mainBoxWidth;
+
+      var messagesBox = this.find('.messenger-column:not(.contacts)').filter(':visible');
+      var compiledWidth = messagesBox.get().reduce(function (p,c) {
+        return p + $(c).outerWidth(true);
+      }, 0);
+
+      var diff = preservedArea - compiledWidth;
+      var offset;
+      if ( diff < 0 ) {
+        offset = Math.abs(diff) / ( messagesBox.length - 1 );
+      }
+      messagesBox.each(function (i){
+        var newRight = mainBoxWidth * (i + 1);
+        if ( offset && i > 0 ) {
+          newRight-=( offset * i );
+        }
+        $(this).css('right', newRight);
+      });
     });
   },
+
+  getMessages: function getMessages(){
+    // TODO change to use WEjs get messages
+    var store = this.get('store');
+    return $.getJSON('/message/unreadMessages')
+    .then(function ( data ){
+      var messages = data.messages || [];
+      if ( !messages.length ) {
+        return;
+      }
+
+      var usersId = messages.reduce(function (p, c){
+        return p.concat([c.fromId]);
+      }, []);
+
+      var objCountable = {};
+      messages.forEach(function (m){
+        objCountable[m.fromId] = objCountable[m.fromId] || 0;
+        objCountable[m.fromId]++;
+      });
+
+      store.find('user', {
+        id: usersId
+      }).then(function (users){
+        users.forEach(function (user){
+          user.set('unreadMessages', objCountable[user.id]);
+        });
+      }).fail(function ( error ){
+        console.warn('Could not load user related to messages', error);
+      });
+    }, function ( error ){
+      console.warn('Could not load unread messages', error);
+    });
+  },
+
   isOpenContactBox: function isOpenContactBox(userId){
     var openContacts = this.get('openContacts');
     var len = openContacts.length;
