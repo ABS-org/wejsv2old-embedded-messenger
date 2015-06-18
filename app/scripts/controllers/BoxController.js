@@ -192,7 +192,7 @@ App.BoxController = Ember.ObjectController.extend({
     focusToggle: function(flag) {
       this.set('hasFocus', flag);
       // has focus
-      if( flag && this.get('isVisible') ) {
+      if( flag && this.get('isListOpen') ) {
         this.set('hasNews', false);
         this.send('markAllAsRead');
       }
