@@ -206,7 +206,7 @@ App.WeMessengerComponent = Ember.Component.extend({
   getMessages: function getMessages(){
     // TODO change to use WEjs get messages
     var store = this.get('store');
-    return $.getJSON('/message/unreadMessages')
+    return $.getJSON(WeMessenger.options.server + '/message/unreadMessages')
     .then(function ( data ){
       var messages = data.messages || [];
       if ( !messages.length ) {

@@ -27,6 +27,8 @@ App.set('LOG_TRANSITIONS', true);
 App.set('LOG_TRANSITIONS_INTERNAL', true);
 App.set('LOG_VIEW_LOOKUPS', true);
 
+App.set('defaultTitle', window.document.title);
+
 // Remove changes to URL
 App.Router = Ember.Router.extend({
   location: 'none'
@@ -94,6 +96,17 @@ WeMessenger.initialize = function (options){
     cdpOnline: WeMessenger.options.server + '/core/images/connected.png'
   });
 
+  if ( window.createjs ) {
+    // Load new-message.mp3 sound to be played on every new private message
+    window.createjs.Sound.registerSound('/sounds/new-message.mp3', 'new-message');
+    window.createjs.Sound.on('fileload', function (e){
+      WeMessenger.sounds = WeMessenger.sounds || {};
+      WeMessenger.sounds[e.id] = window.createjs.Sound.createInstance(e.id);
+    });
+  } else {
+    console.log('Warn:: SoundJs library could not be found, mp3 file could not be loaded');
+  }  
+
   window.jQuery( window.document ).ready(function () {
     /**
      * Add Accept and Header in all request
@@ -130,17 +143,6 @@ WeMessenger.initialize = function (options){
         };
       }
     });
-
-    if ( window.createjs ) {
-      // Load new-message.mp3 sound to be played on every new private message
-      window.createjs.Sound.registerSound('/sounds/new-message.mp3', 'new-message');
-      window.createjs.Sound.on('fileload', function (e){
-        WeMessenger.sounds = WeMessenger.sounds || {};
-        WeMessenger.sounds[e.id] = window.createjs.Sound.createInstance(e.id);
-      });
-    } else {
-      console.log('Warn:: SoundJs library could not be found, mp3 file could not be loaded');
-    }
 
     $.getJSON(WeMessenger.options.accounts + '/account')
     .done(function (data) {
