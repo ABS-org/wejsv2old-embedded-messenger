@@ -82,7 +82,7 @@ App.WeMessengerComponent = Ember.Component.extend({
 
       // set a filter to list connected users
       this.set('contacts', this.get('store').filter('user', function (user) {
-        return ( user.get('messengerStatus') === 'online');
+        return ( user.get('messengerStatus') === 'online' || user.get('unreadMessages') > 0 );
         // body...
       }));
 
@@ -208,10 +208,12 @@ App.WeMessengerComponent = Ember.Component.extend({
     var store = this.get('store');
     return $.getJSON(WeMessenger.options.server + '/message/unreadMessages')
     .then(function ( data ){
-      var messages = data.messages || [];
+      var messages = window._.cloneDeep( data.messages ) || [];
       if ( !messages.length ) {
         return;
       }
+
+      store.pushPayload('message', data);
 
       var usersId = messages.reduce(function (p, c){
         return p.concat([c.fromId]);
@@ -222,6 +224,8 @@ App.WeMessengerComponent = Ember.Component.extend({
         objCountable[m.fromId] = objCountable[m.fromId] || 0;
         objCountable[m.fromId]++;
       });
+
+      usersId = window._.uniq(usersId);
 
       store.find('user', {
         id: usersId

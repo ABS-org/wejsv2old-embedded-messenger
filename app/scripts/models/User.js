@@ -47,5 +47,8 @@ App.User = DS.Model.extend({
   }),
   isTalking: DS.attr('string', {
     defaultValue: false
-  })
+  }),
+  unreadMessages: DS.attr('number', {
+    defaultValue: null
+  })  
 });

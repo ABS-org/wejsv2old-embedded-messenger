@@ -216,7 +216,12 @@ div.messenger-area {
 }
 .messenger .contact {
   font-size: 12px;
-  border-left: 3px solid #fff;
+}
+.messenger .online{
+  border-left: 3px solid #24cc20;
+}
+.messenger .offline{
+  border-left: 3px solid gray;
 }
 .messenger .contact:last-child {
   background: rgb(250,250,250); /* Old browsers */
@@ -227,11 +232,6 @@ div.messenger-area {
   background: -ms-linear-gradient(top, rgba(250,250,250,1) 48%,rgba(233,233,233,1) 100%); /* IE10+ */
   background: linear-gradient(to bottom, rgba(250,250,250,1) 48%,rgba(233,233,233,1) 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#e9e9e9',GradientType=0 ); /* IE6-9 */
-}
-
-.messenger .contact {
-  font-size: 12px;
-  border-left: 3px solid #24cc20;
 }
 
 .messenger .contact .avatar-small {
