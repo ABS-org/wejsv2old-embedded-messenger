@@ -1,7 +1,8 @@
 <div {{bind-attr class=messageClass}} >
   {{!-- <span class="avatar-small">{{we-avatar userId=fromId.id}}</span> --}}
-  <span class="avatar-small">{{user-avatar user=fromId}}</span>
-  <small>{{fromId.displayName}}</small>
+  <span class="avatar-small cursor-pointer" {{action 'talkToUser' fromId}}>{{user-avatar user=fromId}}</span>
+  <small {{action 'talkToUser' fromId}}>{{fromId.displayName}}</small>
+  <br>
   <span class="message">{{content.content}}</span>
   <div class="message-footer">
     <span class="createdAt">{{we-time-ago date=createdAt}}</span>

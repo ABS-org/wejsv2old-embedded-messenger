@@ -119,6 +119,13 @@ App.WeMessengerPublicBoxComponent = Ember.Component.extend({
         self.set('messageNew', '');
         self.scrollToBottom();
       });
+    },
+
+    talkToUser: function (user){
+      if ( user.get('id') === App.currentUser.id ) {
+        return;
+      }
+      user.set('isTalking', true);
     }
   },
 

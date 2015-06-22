@@ -170,6 +170,11 @@ App.WeMessengerComponent = Ember.Component.extend({
       });
     },
 
+    openProfile: function (user){
+      // this.get('targetObject').transitionToRoute('/user', user);
+      window.open(WeMessenger.options.server + '/user/' + user.get('id'), '_blank');
+    }
+
     // /**
     //  * Load in store all contacts for current authenticated user
     //  */
