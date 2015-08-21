@@ -36,6 +36,9 @@ i.IR.sprt-chat-send {
   width: 100%;
   z-index: 100000;
 }
+.messenger-area-wrapper .cursor-pointer{
+  cursor: pointer;
+}
 .messenger-area-wrapper .header {
   padding: 10px;
   font-size: 12px;
@@ -90,11 +93,16 @@ div.messenger-area {
   border-bottom: none;
   bottom: 0;
 }
-.contact-chat .header {
-  background-color: #43a0dd;
+.contact-chat .header {  
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   color: #fff;
+}
+.contact-chat .header-online {
+  background-color: #43a0dd;
+}
+.contact-chat .header-offline {
+  background-color: gray;
 }
 /*
 .public-room-container {
@@ -137,18 +145,19 @@ div.messenger-area {
 .contact-chat .messages .message:last-child {
   border: none;
 }
+/*
 .contact-chat .messages .message .avatar-small {
   display: block;
   float: left;
   margin-right: 3px;
-}
+}*/
 .contact-chat .messages .message .avatar-small img {
   width: 30px;
   height: 30px;
 }
 .contact-chat .messages .message .message {
   background: transparent;
-  display: block;
+  /*display: block;*/
   border: none;
   font-size: 12px;
   line-height: 16px;

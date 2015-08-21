@@ -1,5 +1,5 @@
 <div class="contact-chat" tabindex="0">
-  <div class="header">
+  <div {{bind-attr class="isOnline:header-online:header-offline :header"}}>
     {{#if isOnline}}
       <i class="IR sprt-chat"></i>
     {{else}}
