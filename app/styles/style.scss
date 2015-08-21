@@ -217,6 +217,7 @@ div.messenger-area {
 .messenger .contact {
   font-size: 12px;
 }
+
 .messenger .online{
   border-left: 3px solid #24cc20;
 }
@@ -238,6 +239,8 @@ div.messenger-area {
   display: block;
   float: left;
   margin-right: 5px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 .messenger .contact .avatar-small img {
   width: 25px;
@@ -336,6 +339,15 @@ div.messenger-off .ui-icon-person {
 }
 
 .realtime-status {
-  padding: 5px;
-  min-height: 20px;
+  
+  .contact.is-writing {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #D6D6D6;
+    color: #444;
+    font-size: 12px;
+    padding: 5px 10px;
+  }
 }
