@@ -1,40 +1,43 @@
-<div class="messenger-chat-area">
-  <div class="contact-chat">
-    <div class="header">
-      <i class="IR sprt-chat"></i> <span class="contact-name">Público</span>
-    </div>
-    <div class="actions">
-      <button {{action 'toggleList'}} type="button" class="remove btn btn-xs">
-        <i class="IR sprt-chat-minimize"></i>
-      </button>
-      <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
-        <i class="IR sprt-chat-close"></i>
-      </button>
-    </div>
+<div class="public-room-container">
+  <div class="messenger-column">
+    <div class="messenger-chat-area">
+      <div class="contact-chat">
+        <div class="header">
+          <i class="IR sprt-chat"></i> <span class="contact-name">Público</span>
+        </div>
+        <div class="actions">
+          <button {{action 'toggleList'}} type="button" class="remove btn btn-xs">
+            <i class="IR sprt-chat-minimize"></i>
+          </button>
+          <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
+            <i class="IR sprt-chat-close"></i>
+          </button>
+        </div>
 
-    {{#if isLoading}}
-      <div class="messenger-loading"><img {{bind-attr src=cdpLoading}}> Carregando ... </div>
-    {{/if}}
+        {{#if isLoading}}
+          <div class="messenger-loading"><img {{bind-attr src=cdpLoading}}> Carregando ... </div>
+        {{/if}}
 
-    {{#if isListOpen}}
-      {{render 'messages-public-room' messages controller="Messages"}}
+        {{#if isListOpen}}
+          {{render 'messages-public-room' messages controller="Messages"}}
 
-      <div class="realtime-status"></div>
+          <div class="footer">
+            <form {{action "sendMessage" on="submit"}} >
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <i class="IR sprt-chat-lines"></i>
+                </span>
+                {{auto-expanding-text-area name="messageNew" value=messageNew placeholder=messagePlaceholder submit="sendMessage" rows="1"}}
 
-      <div class="footer">
-        <form {{action "sendMessage" on="submit"}} >
-          <i class="IR sprt-chat-lines"></i>
-          <div class="input-group">
-
-            {{input name="messageNew" value=messageNew type="text" placeholder=messagePlaceholder classNames="input-xs"}}
-
-            <span class="input-group-btn">
-              <button  {{action "sendMessage"}} class="btn btn-xs btn-send" type="submit"><i class="IR sprt-chat-send"></i></button>
-            </span>
+                <span class="input-group-btn">
+                  <button  {{action "sendMessage"}} class="btn btn-xs btn-send" type="submit"><i class="IR sprt-chat-send"></i></button>
+                </span>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
 
-    {{/if}}
+        {{/if}}
+      </div>
+    </div>
   </div>
 </div>

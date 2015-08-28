@@ -1,362 +1,436 @@
+
+/********************************* TRIAL MESSENGER *******************************************/
+
 i.IR {
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%;
-  white-space: nowrap;
-  vertical-align: middle;
-  background: #ccc;
-  width: 16px;
-  height: 19px;
-}
-i.IR.sprt-chat {
-  background: url(i/sprite-chat.png) no-repeat 0 0;
-}
-i.IR.sprt-chat-minimize {
-  background: url(i/sprite-chat.png) no-repeat -25px 0;
-}
-i.IR.sprt-chat-show {
-  background: url(i/sprite-chat.png) no-repeat -130px 0;
-}
-i.IR.sprt-chat-close {
-  background: url(i/sprite-chat.png) no-repeat -49px 0;
-}
-i.IR.sprt-chat-lines {
-  background: url(i/sprite-chat.png) no-repeat -74px 0;
-}
-i.IR.sprt-chat-send {
-  background: url(i/sprite-chat.png) no-repeat -99px 0;
+    display: inline-block;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    vertical-align: middle;
+    background: #ccc;
+    width: 16px;
+    height: 19px;
 }
 
+i.IR.sprt-chat {
+    background: url(i/sprite-chat.png) no-repeat 0 0;
+}
+
+i.IR.sprt-chat-minimize {
+    background: url(i/sprite-chat.png) no-repeat -25px 0;
+}
+
+i.IR.sprt-chat-show {
+    background: url(i/sprite-chat.png) no-repeat -130px 0;
+}
+
+i.IR.sprt-chat-close {
+    background: url(i/sprite-chat.png) no-repeat -49px 0;
+}
+
+i.IR.sprt-chat-lines {
+    background: url(i/sprite-chat.png) no-repeat -74px 0;
+}
+
+i.IR.sprt-chat-send {
+    background: url(i/sprite-chat.png) no-repeat -99px 0;
+}
+i.IR.sprt-chat-typing {
+    background: url(i/sprite-chat.png) no-repeat -142px 0;
+}
 
 .messenger-area-wrapper {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  visibility: hidden;
-  width: 100%;
-  z-index: 100000;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    visibility: hidden;
+    width: 100%;
+    z-index: 100000;
 }
-.messenger-area-wrapper .cursor-pointer{
-  cursor: pointer;
+
+.messenger-area-wrapper .cursor-pointer {
+    cursor: pointer;
 }
+
 .messenger-area-wrapper .header {
-  padding: 10px;
-  font-size: 12px;
-  font-weight: bold;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
 }
+
 .messenger-area-wrapper .messenger-column {
-  height: 500px;
-  width: 250px;
-  margin: 0px 1px;
-  position: fixed;
-  bottom: 0;
-  z-index: -1;
+    height: 500px;
+    width: 250px;
+    margin: 0px 1px;
+    position: fixed;
+    bottom: 0;
+    z-index: -1;
 }
+
 .messenger-area-wrapper .contacts {
-  right: 1px;
+    right: 1px;
 }
+
 .messenger-area-wrapper .messenger-column div {
-  visibility: visible;
+    visibility: visible;
 }
+
 .messenger-area-wrapper .createdAt {
-  color: #999999;
-  font-size: 0.75em;
-  margin: 2px;
-  text-align: left;
+    color: #999999;
+    font-size: 0.75em;
+    margin: 2px;
+    text-align: left;
 }
+
 div.messenger-area {
-  bottom: 0px;
-  position: absolute;
-  box-shadow: 0 0 5px #e1e1e1;
-  border: 1px solid #e1e1e1;
-  border-bottom: none;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+    bottom: 0px;
+    position: absolute;
+    box-shadow: 0 0 5px #e1e1e1;
+    border: 1px solid #e1e1e1;
+    border-bottom: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
-  div.messenger-area .action-bar {
+
+div.messenger-area .action-bar {
     padding: 3px;
     color: #999;
-    background-color: #fff; }
-  div.messenger-area .messenger {
     background-color: #fff;
-    padding-bottom: 5px; }
+}
+
+div.messenger-area .messenger {
+    background-color: #fff;
+    padding-bottom: 5px;
+}
 
 .contact-chat {
-  z-index: 20000;
-  width: 250px;
-  background-color: #fff;
-  position: absolute;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  box-shadow: 0 0 5px #e1e1e1;
-  border: 1px solid #e1e1e1;
-  border-bottom: none;
-  bottom: 0;
+    z-index: 20000;
+    width: 250px;
+    background-color: #fff;
+    position: absolute;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    box-shadow: 0 0 5px #e1e1e1;
+    border: 1px solid #e1e1e1;
+    border-bottom: none;
+    bottom: 0;
 }
-.contact-chat .header {  
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  color: #fff;
+
+.contact-chat .header {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: #fff;
 }
+
 .contact-chat .header-online {
-  background-color: #43a0dd;
+    background-color: #43a0dd;
 }
+
 .contact-chat .header-offline {
-  background-color: gray;
+    background-color: gray;
 }
+
+
 /*
 .public-room-container {
   overflow: hidden;
 }
 */
+
 .public-room-container .contact-chat .header {
-  background-color: #00a38a;
+    background-color: #00a38a;
 }
+
 .contact-chat .actions,
 .messenger-area .actions {
-  position: absolute;
-  right: 8px;
-  top: 8px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
 }
+
 .contact-chat .actions .btn-close {
-  font-size: 1.25em;
-  line-height: 1.7em;
-  background: transparent;
-  color: #fff; }
+    font-size: 1.25em;
+    line-height: 1.7em;
+    background: transparent;
+    color: #fff;
+}
+
 .contact-chat .actions .btn,
 .messenger-area .actions .btn {
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+}
 
-}
 .contact-chat .messages {
-  height: 200px;
-  padding: 0;
-  overflow-y: scroll;
-  background: #fff;
+    height: 200px;
+    padding: 0;
+    overflow-y: scroll;
+    background: #fff;
 }
+
 .contact-chat .messages .message {
-  border-bottom: 1px solid #e1e1e1;
-  padding: 6px 2px;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 6px 2px;
 }
+
 .contact-chat .messages .message:hover {
-  background: #fbfbfb; }
-.contact-chat .messages .message:last-child {
-  border: none;
+    background: #fbfbfb;
 }
+
+.contact-chat .messages .message:last-child {
+    border: none;
+}
+
+
 /*
 .contact-chat .messages .message .avatar-small {
   display: block;
   float: left;
   margin-right: 3px;
 }*/
+
 .contact-chat .messages .message .avatar-small img {
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
 }
+
 .contact-chat .messages .message .message {
-  background: transparent;
-  /*display: block;*/
-  border: none;
-  font-size: 12px;
-  line-height: 16px;
-  position: relative;
-  padding-top: 0px;
-  width: inherit;
-  float: inherit;
-  top: inherit;
-  margin-bottom: inherit;
-  word-wrap: break-word;
+    background: transparent;
+    /*display: block;*/
+    border: none;
+    font-size: 12px;
+    line-height: 16px;
+    position: relative;
+    padding-top: 0px;
+    width: inherit;
+    float: inherit;
+    top: inherit;
+    margin-bottom: inherit;
+    word-wrap: break-word;
 }
+
 .contact-chat .messages .message.sending {
-  background-color: #efefef;
+    background-color: #efefef;
 }
+
 .contact-chat .messages .message.send {
-  background-color: #ceffde;
+    background-color: #ceffde;
 }
+
 .contact-chat .messages .message.error {
-  background-color: #ffcab8;
+    background-color: #ffcab8;
 }
 
 #we-mesenger .footer {
-  margin-top: 0px;
+    margin-top: 0px;
 }
 
 .contact-chat .message-footer {
-  width: 100%;
-  padding-left: 32px;
-  clear: right;
-}
-.contact-chat .message-footer .createdAt {
-  font-size: 11px;
-}
-.contact-chat .footer {
-  border-top: 1px solid #ddd;
-  background: #f4f4f4;
-  padding: 0;
-}
-  .contact-chat .footer .btn {
-    background: transparent;
-  }
-    .contact-chat .footer .btn-send {
-      width: 23px;
-      border-left: 1px solid #818184;
-    }
-    .contact-chat .footer form {
-      padding: 10px;
-      i.IR.sprt-chat-lines {
-        float: left;
-        margin: 5px 0 0 5px;
-      }
-      .input-group {
-        margin-left: 27px;
-      }
-    }
-    .contact-chat .footer input {
-      width: 165px;
-      height: 28px;
-      font-size: 12px;
-      background: #f4f4f4;
-      border: none;
-      padding-left: 6px; }
-.contact-chat .footer input:focus {
-  outline: 0;
-}
-.messenger .contact {
-  font-size: 12px;
+    width: 100%;
+    padding-left: 32px;
+    clear: right;
 }
 
-.messenger .online{
-  border-left: 3px solid #24cc20;
+.contact-chat .message-footer .createdAt {
+    font-size: 11px;
 }
-.messenger .offline{
-  border-left: 3px solid gray;
+
+.contact-chat .footer {
+    border-top: 1px solid #ddd;
+    background: #f4f4f4;
+    padding: 0;
 }
+
+.contact-chat .footer .btn {
+    background: transparent;
+}
+
+.contact-chat .footer .btn-send {
+    width: 23px;
+    border-left: 1px solid #818184;
+}
+
+.contact-chat .footer form {
+    padding: 10px;
+    i.IR.sprt-chat-lines {
+        float: left;
+        margin: 5px 0 0 5px;
+    }
+}
+
+.contact-chat .footer input {
+    width: 165px;
+    height: 28px;
+    font-size: 12px;
+    background: #f4f4f4;
+    border: none;
+    padding-left: 6px;
+}
+
+.contact-chat .footer form i.IR.sprt-chat-lines {
+    float: left;
+    margin: 5px 0 0 5px;
+}
+
+.contact-chat .footer textarea {
+    resize: none;
+    width: 180px;
+    min-height: 28px;
+    max-height: 110px;
+    font-size: 12px;
+    background: #f4f4f4;
+    border: 0;
+    padding-left: 6px;
+    padding-top: 12px;
+    outline: none;
+}
+
+.contact-chat .footer input:focus {
+    outline: 0;
+}
+
+.messenger .contact {
+    font-size: 12px;
+}
+
+.messenger .online {
+    border-left: 3px solid #24cc20;
+}
+
+.messenger .offline {
+    border-left: 3px solid gray;
+}
+
 .messenger .contact:last-child {
-  background: rgb(250,250,250); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(250,250,250,1) 48%, rgba(233,233,233,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(48%,rgba(250,250,250,1)), color-stop(100%,rgba(233,233,233,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(250,250,250,1) 48%,rgba(233,233,233,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(250,250,250,1) 48%,rgba(233,233,233,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(250,250,250,1) 48%,rgba(233,233,233,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom, rgba(250,250,250,1) 48%,rgba(233,233,233,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#e9e9e9',GradientType=0 ); /* IE6-9 */
+    background: rgb(250, 250, 250);
+    /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(250, 250, 250, 1) 48%, rgba(233, 233, 233, 1) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(48%, rgba(250, 250, 250, 1)), color-stop(100%, rgba(233, 233, 233, 1)));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(250, 250, 250, 1) 48%, rgba(233, 233, 233, 1) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(250, 250, 250, 1) 48%, rgba(233, 233, 233, 1) 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(250, 250, 250, 1) 48%, rgba(233, 233, 233, 1) 100%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 48%, rgba(233, 233, 233, 1) 100%);
 }
 
 .messenger .contact .avatar-small {
-  display: block;
-  float: left;
-  margin-right: 5px;
-  border-radius: 50%;
-  overflow: hidden;
+    display: block;
+    float: left;
+    margin-right: 5px;
 }
+
 .messenger .contact .avatar-small img {
-  width: 25px;
-  height: 25px;
-  padding: 0px;
+    width: 25px;
+    height: 25px;
+    padding: 0px;
 }
 
 .messenger .avatar-small img,
 .contact-chat .messages .message .avatar-small img {
-  border: none;
-  margin-bottom: 0px;
-  border-radius: 50%;
-  background: transparent;
+    border: none;
+    margin-bottom: 0px;
+    border-radius: 50%;
+    background: transparent;
 }
 
 .messenger .contact-list .contact a,
 .messenger .messenger-room a {
-  position: relative;
-  display: block;
-  padding: 7px 8px;
-  min-height: 40px;
+    position: relative;
+    display: block;
+    padding: 7px 8px;
+    min-height: 40px;
 }
 
 .messenger .contact-list .contact a:hover,
-.messenger .messenger-room a:hover{
+.messenger .messenger-room a:hover {
     text-decoration: none;
     background-color: #eee;
 }
-.messenger .messenger-room a{
-  min-height: inherit;
+
+.messenger .messenger-room a {
+    min-height: inherit;
 }
+
 .messenger .rooms-list {
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
 }
+
 .messenger .header {
-  background-color: #43a0dd;
-  color: #fff;
-  width: 240px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+    background-color: #43a0dd;
+    color: #fff;
+    width: 240px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
+
 .messenger .friendlist {
-  cursor: pointer;
-  margin-bottom: 0px;
-  border-bottom: 1px solid #dfdfdf;
-  overflow-y: auto;
-  max-height: 390px;
+    cursor: pointer;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #dfdfdf;
+    overflow-y: auto;
+    max-height: 390px;
 }
+
 div.messenger-area .messenger .search-area {
-  margin: 0;
+    margin: 0;
 }
+
 div.messenger-area .messenger .search-area input {
-  width: 100%;
-  font-size: 12px;
-  padding-left: 6px;
-  height: 28px;
-  margin-bottom: -4px;
-  border: none;
-  border-top: 1px solid #ddd;
-  color: #ccc;
-  background: #f4f4f4;
+    width: 100%;
+    font-size: 12px;
+    padding-left: 6px;
+    height: 28px;
+    margin-bottom: -4px;
+    border: none;
+    border-top: 1px solid #ddd;
+    color: #ccc;
+    background: #f4f4f4;
 }
+
 div.messenger-area .messenger .search-area input:focus {
-  outline: 0;
+    outline: 0;
 }
 
 div.messenger-off {
-  background-color: #43a0dd;
-  color: #fff;
-  width: 240px;
-  padding: 10px;
-  font-size: 12px;
-  font-weight: bold;
+    background-color: #43a0dd;
+    color: #fff;
+    width: 240px;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 div.messenger-off .ui-icon-person {
-  float: left;
-  vertical-align: middle;
+    float: left;
+    vertical-align: middle;
 }
 
 .contact-list {
-  padding-left: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+    padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
-.contact-list li{
-  list-style-type: none;
+.contact-list li {
+    list-style-type: none;
 }
 
 .messenger-loading,
 .messenger-loading img {
-  height: 30px;
+    height: 30px;
 }
 
 .realtime-status {
-  
-  .contact.is-writing {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: #D6D6D6;
-    color: #444;
-    font-size: 12px;
-    padding: 5px 10px;
-  }
+    padding: 5px;
+    min-height: 20px;
 }
+
+
+/********************************* TRIAL MESSENGER *******************************************/

@@ -1,52 +1,53 @@
-<div class="contact-chat" tabindex="0">
-  <div {{bind-attr class="isOnline:header-online:header-offline :header"}}>
-    {{#if isOnline}}
-      <i class="IR sprt-chat"></i>
-    {{else}}
-      {{!--<span class="messenger-status"><img width='17px' {{bind-attr src=cdpOffline}}></span>--}}
-    {{/if}}
-    {{!-- <span class="contact-name">{{contactUser.displayName}}</span> --}}
-    <span class="contact-name"> {{displayName}}</span>
-  </div>
-  <div class="actions">
-    <button {{action 'toggleList'}} type="button" class="remove btn btn-xs">
-      <i class="IR sprt-chat-minimize"></i>
-    </button>
-    <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
-      <i class="IR sprt-chat-close"></i>
-    </button>
-  </div>
+<div class="messenger-column">
+  <div class="messenger-chat-area">
+    <div class="contact-chat" tabindex="0">
+      <div {{bind-attr class="isOnline:header-online:header-offline :header"}}>
+        {{#if isOnline}}
+          <i class="IR sprt-chat"></i>
+        {{/if}}
+        <span class="contact-name cursor-pointer" {{action 'openProfile' this}}> {{displayName}}</span>
+      </div>
+      <div class="actions">
+        <button {{action 'toggleList'}} type="button" class="remove btn btn-xs">
+          <i class="IR sprt-chat-minimize"></i>
+        </button>
+        <button {{action 'closeList'}} type="button" class="remove btn btn-xs">
+          <i class="IR sprt-chat-close"></i>
+        </button>
+      </div>
 
-  <div class="action-bar">
+      <div class="action-bar">
 
-  </div>
+      </div>
 
-  {{#if isListOpen}}
-      {{#if isLoading}}
-        <div class="messenger-loading"><img {{bind-attr src=cdpLoading}}> Carregando ... </div>
+      {{#if isListOpen}}
+        <div>
+          {{#if isLoading}}
+            <div class="messenger-loading"><img {{bind-attr src=cdpLoading}}> Carregando ... </div>
+          {{/if}}
+
+          {{render 'messages' messages id=boxId }}
+
+          <div class="footer">
+            <form {{action "sendMessage" on="submit"}} method="post">
+              <div class="input-group">
+                <span class="input-group-btn">
+                {{#if isWriting}}
+                  <i class="IR sprt-chat-typing"></i>
+                {{else}}
+                  <i class="IR sprt-chat-lines"></i>
+                {{/if}}
+                </span>
+                {{auto-expanding-text-area name="messageNew" value=messageNew placeholder=messagePlaceholder submit="sendMessage" rows="1"}}
+                <span class="input-group-btn">
+                  <button  {{action "sendMessage"}} class="btn btn-xs btn-send" type="submit"><i class="IR sprt-chat-send"></i></button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
       {{/if}}
 
-      {{render 'messages' messages id=boxId }}
-
-      <div class="realtime-status">
-        {{#if isWriting}}
-          <div class="contact is-writing">
-            <span class="small is-writing-text">Digitando...</span>
-          </div>
-        {{/if}}
-      </div>
-
-      <div class="footer">
-        <form {{action "sendMessage" on="submit"}} method="post">
-          <i class="IR sprt-chat-lines"></i>
-          <div class="input-group">
-            {{input name="messageNew" value=messageNew  type="text" placeholder=messagePlaceholder classNames="input-xs"}}
-            <span class="input-group-btn">
-              <button  {{action "sendMessage"}} class="btn btn-xs btn-send" type="submit"><i class="IR sprt-chat-send"></i></button>
-            </span>
-          </div>
-        </form>
-      </div>
-  {{/if}}
-
+    </div>
+  </div>
 </div>

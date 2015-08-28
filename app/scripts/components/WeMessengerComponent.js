@@ -26,10 +26,7 @@ App.WeMessengerComponent = Ember.Component.extend({
 
   init: function initWeMessengerComponent(){
     this._super();
-
-    // if (window.localStorage.weMessengerIsListStatus == 'close') {
-    //   this.set('isListOpen', false);
-    // }
+    var self = this;
 
     if ( $.cookie('weMessengerIsListStatus') === 'close' ) {
       this.set('isListOpen', false);
@@ -43,7 +40,6 @@ App.WeMessengerComponent = Ember.Component.extend({
       }
     }
 
-    // if (window.localStorage.weMessengerIsActive != 'off') this.send('turnOn');
     if ( $.cookie('weMessengerIsActive') !== 'off' ) {
       this.send('turnOn');
     }
@@ -69,7 +65,6 @@ App.WeMessengerComponent = Ember.Component.extend({
       var self = this;
 
       this.set('isActive', true);
-      // window.localStorage.weMessengerIsActive = 'on';
       $.cookie('weMessengerIsActive', 'on');
 
       if( !this.get('socket') ){
@@ -110,10 +105,19 @@ App.WeMessengerComponent = Ember.Component.extend({
       });
 
       self.get('WeMessengerEvents').on('we-messenger-message-received', function OnReceiveMessage(socketMessage) {
-        self.get('store').pushPayload('message', {
-          message: socketMessage.message
-        });
-        socketMessage.message.fromId.set('isTalking', true);
+        // This workaround is necessary to prevent Ember Store to duplicate record
+        // All messages sent by user are notifyied back to all it's sockets connectino to ensure
+        // that all devices/browsers are synced
+        Ember.run.later(function (){
+          self.get('store').pushPayload('message', {
+            message: socketMessage.message
+          });
+          if (socketMessage.message.fromId.id != App.currentUser.id) {
+            socketMessage.message.fromId.set('isTalking', true);
+          } else {
+            socketMessage.message.toId.set('isTalking', true);
+          }
+        }, 500);
       });
 
       self.get('WeMessengerEvents').on('we-messenger-updated-message', function OnReceiveMessage(socketMessage) {
@@ -126,7 +130,6 @@ App.WeMessengerComponent = Ember.Component.extend({
       if ( window.confirm('Ao desligar o comunicador você não vai poder enviar ou receber mensagens.'+
         ' Você term certeza que deseja desligar o comunicador?')){
         this.set('isActive', false);
-        // window.localStorage.weMessengerIsActive = 'off';
         $.cookie('weMessengerIsActive', 'off');
         // TODO turn off without reload
         window.location.reload();
@@ -134,13 +137,11 @@ App.WeMessengerComponent = Ember.Component.extend({
     },
 
     openList: function openList(){
-      // window.localStorage.weMessengerIsListStatus = 'open';
       $.cookie('weMessengerIsListStatus', 'open');
       this.set('isListOpen', true);
       //this.get('openContacts').pushObject({      name: 'oi2',})
     },
     closeList: function closeList(){
-      // window.localStorage.weMessengerIsListStatus = 'close';
       $.cookie('weMessengerIsListStatus', 'close');
       this.set('isListOpen', false);
     },
@@ -294,7 +295,7 @@ App.WeMessengerComponent = Ember.Component.extend({
       if( !App.get('auth.isAuthenticated') ) {
         return false;
       }
-      if( data.message && data.message.fromId !== App.currentUser.id ){
+      if( data.message ){
         // we.messenger.publicRoom.messages.push(data.message);
         self.get('WeMessengerEvents').trigger('weMessengerPublicMessageReceived', data);
       }

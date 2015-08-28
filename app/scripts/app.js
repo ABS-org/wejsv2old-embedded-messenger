@@ -105,7 +105,7 @@ WeMessenger.initialize = function (options){
     });
   } else {
     console.log('Warn:: SoundJs library could not be found, mp3 file could not be loaded');
-  }  
+  }
 
   window.jQuery( window.document ).ready(function () {
     /**
@@ -152,6 +152,15 @@ WeMessenger.initialize = function (options){
       });
       window.io.socket = window.io.sails.connect(opts.server);
       App.advanceReadiness();
+      // Start timeago countdown
+      setInterval(function () {
+        $('[data-moment]').each(function (index, item) {
+          var $this = $(item);
+          var createdAt = $this.data('moment');
+          var ago = $this.data('ago') === undefined;
+          $this.text(moment(createdAt).fromNow(ago));
+        });
+      }, 60000);      
     })
     .fail(function (error){
       console.log('WeMessenger:: Access Denied');
@@ -172,3 +181,5 @@ require('scripts/views/*');
 require('scripts/components/*');
 require('scripts/router');
 require('scripts/injections/*');
+
+require('scripts/autosize');

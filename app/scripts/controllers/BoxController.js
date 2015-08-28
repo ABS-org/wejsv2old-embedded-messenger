@@ -11,7 +11,7 @@ App.BoxController = Ember.ObjectController.extend({
   isContactWritingTime: 2000,
 
   iAmWritingTimeout: false,
-  isWritingTime: 3500,
+  isWritingTime: 2000,
   // placeholder for message input
   messagePlaceholder: '',
 
@@ -62,7 +62,7 @@ App.BoxController = Ember.ObjectController.extend({
 
     Ember.run.scheduleOnce('afterRender', this, function (){
       var lastMessage = this.get('messages.lastObject');
-      if ( !this.get('hasFocus') && !lastMessage.get('read') ) {
+      if ( !this.get('hasFocus') && !Ember.get(lastMessage, 'read') ) {
         // Play sound
         if ( WeMessenger.sounds['new-message'] ) {
           WeMessenger.sounds['new-message'].play();
@@ -133,15 +133,18 @@ App.BoxController = Ember.ObjectController.extend({
     var self = this;
 
     if (data.user && data.user.id) {
-      if ( Number( this.get('model.id') ) === data.user.id && !this.get('isWriting') ) {
+      // if (Number(this.get('model.id')) === data.user.id && !this.get('isWriting')) {
+      if (Number(this.get('model.id')) === data.user.id) {
         // set one delay for re-send this event
         self.set('isWriting', true);
-        setTimeout(function isWritingTime(){
-          self.set('isWriting', false);
-        }, self.get('isContactWritingTime'));
+        Ember.run.debounce(this, this._cancelIsWriting, self.get('isWritingTime') + 1000)
       }
     }
   },
+
+  _cancelIsWriting: function () {
+    this.set('isWriting', false);
+  },  
 
   willDestroyElement: function(){
     this._super();
@@ -284,22 +287,16 @@ App.BoxController = Ember.ObjectController.extend({
      */
     emitIsWriting: function emitIsWriting(){
       var self = this;
-      var contactId = self.get('model.id');
-
-      // only send this event every "isWritingTime" secconds
-      if( !self.get('iAmWritingTimeout') ){
-        this.get('socket').post('/messenger/user/writing?access_token=' + App.get('auth.authToken'), {
-          toUserId: contactId
-        },function(resp, jwres){
-          if(jwres.statusCode && jwres.statusCode !== 200) {
-            Ember.Logger.error('Error on emitIsWriting',resp);
-          }
-        });
-        // set one delay for re-send this event
-        self.set('iAmWritingTimeout', setTimeout(function(){
-          self.set('iAmWritingTimeout', false);
-        }, self.get('isWritingTime') ));
-      }
+      Ember.run.throttle(this, this._sendIsTyping, self.get('isWritingTime'));
     }
-  } // end actions
+  }, // end actions
+  _sendIsTyping: function () {
+    io.socket.post('/messenger/user/writing?access_token=' + App.get('auth.authToken'), {
+      toUserId: this.get('model.id')
+    }, function (resp, jwres) {
+      if (jwres.statusCode && jwres.statusCode !== 200) {
+        Ember.Logger.error('Error on emitIsWriting', resp);
+      }
+    });
+  }  
 });

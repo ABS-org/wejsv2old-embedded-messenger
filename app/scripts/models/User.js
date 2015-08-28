@@ -50,5 +50,5 @@ App.User = DS.Model.extend({
   }),
   unreadMessages: DS.attr('number', {
     defaultValue: null
-  })  
+  })
 });

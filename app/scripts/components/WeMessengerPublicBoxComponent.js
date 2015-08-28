@@ -2,7 +2,6 @@
 App.inject( 'component:we-messenger-public-box', 'store', 'store:main' );
 
 App.WeMessengerPublicBoxComponent = Ember.Component.extend({
-  classNames: ['public-room-container','messenger-column'],
   messages: null,
   messageNew: '',
   isListOpen: true,
