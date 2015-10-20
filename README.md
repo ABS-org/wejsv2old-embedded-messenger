@@ -1,6 +1,8 @@
 we-messenger
 ==========
 
+# Old version! for We.js v0.2.x ,see https://github.com/wejs/we-client-emberjs-messenger for new client side APP
+
 ## Usage
 
 ```bash
